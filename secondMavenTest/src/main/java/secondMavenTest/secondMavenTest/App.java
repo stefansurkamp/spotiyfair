@@ -35,7 +35,6 @@ public class App
         	String stringResult = request.body();
         	int result = Integer.parseInt(stringResult);
         	String resp;
-        	String kas;
         	if(result==11){
         		resp = "Das ist richtig!";
         	}
