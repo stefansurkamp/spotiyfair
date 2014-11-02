@@ -141,8 +141,6 @@ public class App
         
         //spotify test mit param
         get("/spotify/:searchParam", (request, response) -> {
-        	// Client Credentials flow Beispiel aus der github readme
-        	// Beziehen eines Acces Token auskommentiert
         	final String clientId = "609e33506de24010b8e8cb4e29d5a733";
         	final String clientSecret = "cf386060cac347e79e166cb9b350c63a";
 
@@ -157,12 +155,17 @@ public class App
         	   final Page<Track> trackSearchResult = trackReq.get();
         	   //die ersten drei ergebnisse ausgeben + in resObject schreiben
         	   List<Track> res = trackSearchResult.getItems();
+        	   
+        	 
+        	  
         	   ResponseObject[] responseObjectArray = new ResponseObject[3];
         		for (int i = 0; i < res.size() && i<11; i+=5) {
         			Track resTrack = new Track();
         			List<SimpleArtist> resTrackArtists = new ArrayList<SimpleArtist>();
         			SimpleArtist resTrackArtist = new SimpleArtist();
         			resTrack = res.get(i);
+        			
+        			
         			resTrackArtists = resTrack.getArtists();
         			resTrackArtist = resTrackArtists.get(0);
         			
