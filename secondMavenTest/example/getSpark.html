@@ -1,0 +1,29 @@
+<html>
+<head>
+  <title>Spark get req</title>
+</head>
+<body>
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+
+<div id="button" style="background-color: red">get</div>
+<div id="result"></div>
+<p>7+4=<input type="text" id="res"></p>
+<div id="button2" style="background-color: yellow">post</div>
+<div id="result2"></div>
+
+<script>
+
+$('#button').click(function(){ //wenn der button geklickt wird ....
+  $.ajax({url:"http://localhost:9595/get",success:function(result){ //wird über ajax die url aufgerufen und sobald das Ergebnis vom Server empfangen wurde...
+    $("#result").html(result); //wird das ergebnis in den div kontainer geschrieben
+  }});
+});
+$('#button2').click(function(){ //genau das gleiche nur, dass hier post eingesetz ist.
+  $.post( "http://localhost:9595/post", $('#res').val() ) //dem server wird das vom user eingetippte ergebnis übermittelt.
+  .done(function( data ) {
+    $("#result2").html(data);
+  });
+});
+</script>
+</body>
+</html>
