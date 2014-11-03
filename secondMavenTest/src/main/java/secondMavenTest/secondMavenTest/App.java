@@ -75,7 +75,7 @@ public class App
         	// Client Credentials flow Beispiel aus der github readme
         	// Beziehen eines Acces Token auskommentiert
         	final String clientId = "609e33506de24010b8e8cb4e29d5a733";
-        	final String clientSecret = "cf386060cac347e79e166cb9b350c63a";
+        	final String clientSecret = ""; //secretKey!
 
         	final Api api = Api.builder()
         	  .clientId(clientId)
@@ -138,12 +138,14 @@ public class App
         //spotify test mit param
         get("/spotify/:searchParam", (request, response) -> {
         	final String clientId = "609e33506de24010b8e8cb4e29d5a733";
-        	final String clientSecret = "cf386060cac347e79e166cb9b350c63a";
+        	final String clientSecret = ""; // secretKey!
 
         	final Api api = Api.builder()
         	  .clientId(clientId)
         	  .clientSecret(clientSecret)
         	  .build();  	
+        	
+     	   ResponseObject[] responseObjectArray = new ResponseObject[3];
         	
         	// Searching for track Beispiel aus der github readme
         	final TrackSearchRequest trackReq = api.searchTracks(request.params(":searchParam")).build();
@@ -151,11 +153,8 @@ public class App
         	   final Page<Track> trackSearchResult = trackReq.get();
         	   //die ersten drei ergebnisse ausgeben + in resObject schreiben
         	   List<Track> res = trackSearchResult.getItems();
-        	   
-        	 
-        	  
-        	   ResponseObject[] responseObjectArray = new ResponseObject[3];
-        		for (int i = 0; i < res.size() && i<11; i+=5) {
+
+        		for (int i = 0; i < res.size() && i<3; i++) { //(int i = 0; i < res.size() && i<11; i+=5)
         			Track resTrack = new Track();
         			List<SimpleArtist> resTrackArtists = new ArrayList<SimpleArtist>();
         			SimpleArtist resTrackArtist = new SimpleArtist();
@@ -174,10 +173,10 @@ public class App
         			if(i==0){
         				responseObjectArray[0] = responseObject;
         			}
-        			if(i==5){
+        			if(i==1){//5
         				responseObjectArray[1] = responseObject;
         			}
-        			if(i==10){
+        			if(i==2){//10
         				responseObjectArray[2] = responseObject;
         			}
         		}
@@ -186,7 +185,7 @@ public class App
         	   System.out.println("Something went wrong!" + e.getMessage());
         	}
         	
-        	return "Java Konsole überprüfen";
+        	return responseObjectArray[0].toString() + "<br/>" + responseObjectArray[1].toString() + "<br/>" + responseObjectArray[2].toString();
         });
     }
 }
